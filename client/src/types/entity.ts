@@ -4,5 +4,5 @@ export interface IBook {
   description: string;
   isbn: string;
   author: string;
-  file: null | FileList;
+  file: null | FileList | string;
 }
