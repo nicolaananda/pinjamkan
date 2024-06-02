@@ -14,7 +14,7 @@ mongoose
 const app = express();
 
 app.use(express.json());
-
+app.use(express.urlencoded({ extended: true }));
 app.use(cors({ origin: "http://localhost:5173" }));
 app.use("/books", bookRouter);
 app.get("/", (req, res) => res.json({ message: "Hello dari Server" }));

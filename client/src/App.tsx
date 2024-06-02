@@ -5,11 +5,12 @@ import { useQuery } from "react-query";
 import { bookServices } from "./services/bookServices";
 import { useMutation, useQueryClient } from "react-query";
 import { Toaster, toast } from "sonner";
-const initialBook = {
+const initialBook: IBook = {
   name: "",
   description: "",
   isbn: "",
   author: "",
+  file: null,
 };
 
 export default function App() {
@@ -38,19 +39,19 @@ export default function App() {
     getData(data);
   }
 
-  async function createData() {
-    const res = await fetch("http://localhost:8000/books", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(book),
-    });
-    const data = await res.json();
-    console.log(data);
-    getData();
-    setBook(initialBook);
-  }
+  // async function createData() {
+  //   const res = await fetch("http://localhost:8000/books", {
+  //     method: "POST",
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(book),
+  //   });
+  //   const data = await res.json();
+  //   console.log(data);
+  //   getData();
+  //   setBook(initialBook);
+  // }
 
   return (
     <div className="flex justify-center my-6">
@@ -82,14 +83,15 @@ export default function App() {
             placeholder="author"
             onChange={(e) => setBook({ ...book, author: e.target.value })}
           />
+          <Input
+            type="file"
+            onChange={(e) =>
+              setBook({ ...book, file: e.target.files as FileList })
+            }
+          />
           <Button
             onClick={() => {
-              handleAddBook({
-                name: book.name,
-                description: book.description,
-                isbn: book.isbn,
-                author: book.author,
-              });
+              handleAddBook(book);
             }}
           >
             Add book

@@ -9,7 +9,9 @@ export const bookController = {
 
   createData: async (req: Request, res: Response) => {
     const { name, description, isbn, author } = req.body;
-    const createBook = new Book({ name, description, isbn, author });
+    const file = req.file;
+
+    const createBook = new Book({ name, description, isbn, author, file });
 
     const saved = await createBook.save();
     return res.json({ message: "Buku Masuk", data: saved });

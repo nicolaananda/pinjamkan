@@ -6,17 +6,23 @@ export const bookServices = {
     const data = (await res.json()) as IBook[];
     return data;
   },
-  createData: async ({ name, description, isbn, author }: IBook) => {
-    if (!name || !description || !isbn || !author) {
+  createData: async ({ name, description, isbn, author, file }: IBook) => {
+    if (!name || !description || !isbn || !author || !file) {
       throw new Error("All fields are required");
     }
+    const formData = new FormData();
+    formData.append("name", name);
+    formData.append("description", description);
+    formData.append("isbn", isbn);
+    formData.append("author", author);
+    formData.append("file", file[0]);
 
     const res = await fetch("http://localhost:8000/books", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ name, description, isbn, author }),
+      // headers: {
+      //   "Content-Type": "application/json",
+      // },
+      body: formData,
     });
 
     const data = (await res.json()) as IBook;
