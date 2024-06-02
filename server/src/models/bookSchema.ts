@@ -5,6 +5,7 @@ const bookSchema = new Schema({
   description: String,
   isbn: String,
   author: String,
+  file: String,
 });
 
 export const Book = model("book", bookSchema);

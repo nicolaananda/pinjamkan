@@ -110,6 +110,7 @@ export default function App() {
                   <div>{book.description}</div>
                   <div>{book.isbn}</div>
                   <div>{book.author}</div>
+                  <div>{book.file}</div>
                 </div>
               );
             })}
